@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"syscall"
 )
 
 func main() {
@@ -42,15 +43,15 @@ func main() {
 		Addr:    ":9000",
 		Handler: g,
 	}
-	ch := make(chan os.Signal)
+	quit := make(chan os.Signal)
 	go func() {
 		if err := server.ListenAndServe(); err != nil {
 			log.Printf("service exit with error: %v", err)
+			close(quit)
 		}
-		close(ch)
 	}()
-	signal.Notify(ch, os.Interrupt, os.Kill)
-	<-ch
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
 	_ = server.Shutdown(context.Background())
 
 }
