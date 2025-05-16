@@ -15,3 +15,6 @@ node_modules
 
 # Hardhat Ignition default folder for deployments against a local node
 ignition/deployments/chain-31337
+# 通常情况下非测试环境不应该添加到忽略列表
+# 这里因为都是测试,所以也忽略
+ignition/deployments/
