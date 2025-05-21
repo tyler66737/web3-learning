@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8;
+pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "./NFTAuctionV2.sol";
@@ -41,10 +41,6 @@ contract NFTAuctionV2Factory {
         );
 
         // 创建新的拍卖合约
-        // 与V1不同,V2版本每个拍卖都是独立的合约
-        // V1是在同一个合约中通过mapping存储多个拍卖
-        // V2每个拍卖都有独立的地址,更容易与其他合约交互
-        // 同时也方便单独管理每个拍卖的状态
         NFTAuctionV2 auction = new NFTAuctionV2();
         auctions.push(auction);
         
@@ -64,7 +60,11 @@ contract NFTAuctionV2Factory {
             minBidIncrement
         );
 
-        emit AuctionCreated(nftContract, tokenId, address(auction));
+        emit AuctionCreated(
+            nftContract,
+            tokenId,
+            address(auction)
+        );
         
         return address(auction);
     }

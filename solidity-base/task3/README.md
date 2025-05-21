@@ -16,5 +16,20 @@ npx hardhat ignition deploy ./ignition/modules/Lock.js --network sepolia --reset
 
 # 生成覆盖率报告
 npx hardhat coverage
+```
+
+
+
+## 基本环境与环境初始化
 
 ```
+# 本地开发时使用node v20版本
+nvm use v20
+```
+
+
+
+# todo
+npx remixd
+app.uniswap.org 代币兑换
+chain link官网,兑换,以及测试网地址
